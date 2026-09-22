@@ -246,6 +246,41 @@ h1 {
   animation: pulse 1.4s ease-in-out infinite;
 }
 
+.status-dot.inactive {
+  background: #97a19c;
+  box-shadow: 0 0 0 4px rgba(151, 161, 156, 0.13);
+}
+
+.mode-badge {
+  padding: 5px 9px;
+  border: 1px solid #dfe5e1;
+  border-radius: 999px;
+  color: #53605a;
+  background: #f5f7f5;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.mode-badge.mock {
+  color: #714c18;
+  border-color: #ead9b9;
+  background: #fff8eb;
+}
+
+.call-timer {
+  color: #33413a;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 12px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.call-timer.ending-soon {
+  color: #c64343;
+}
+
 .reload-button {
   padding: 7px 10px;
   display: inline-flex;
@@ -286,6 +321,284 @@ h1 {
   height: 100%;
   border: 0;
   background: #f4f5f3;
+}
+
+.direct-stage {
+  position: relative;
+  flex: 1;
+  min-height: 580px;
+  overflow: hidden;
+  color: #fff;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(48, 94, 72, 0.6), transparent 42%),
+    #111a16;
+}
+
+.direct-empty-state {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 36px;
+  text-align: center;
+  background:
+    linear-gradient(145deg, rgba(246, 248, 246, 0.98), rgba(236, 242, 238, 0.98)),
+    #eff3f0;
+}
+
+.avatar-orb {
+  width: 112px;
+  height: 112px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  margin-bottom: 24px;
+  border-radius: 36% 64% 58% 42% / 48% 42% 58% 52%;
+  background:
+    radial-gradient(circle at 35% 30%, #f8dfb7 0 10%, transparent 11%),
+    linear-gradient(145deg, #315f4b, #143c2c);
+  box-shadow:
+    0 22px 45px rgba(23, 78, 56, 0.25),
+    inset 0 1px 1px rgba(255, 255, 255, 0.35);
+  animation: float 5s ease-in-out infinite;
+}
+
+.avatar-orb::before,
+.avatar-orb::after,
+.avatar-orb span {
+  content: "";
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+}
+
+.avatar-orb::before {
+  width: 8px;
+  height: 8px;
+  left: 37px;
+  top: 43px;
+  background: #d9eadf;
+  box-shadow: 31px 0 #d9eadf;
+}
+
+.avatar-orb::after {
+  width: 34px;
+  height: 15px;
+  left: 39px;
+  top: 65px;
+  border-bottom: 3px solid #d9eadf;
+  border-radius: 0 0 30px 30px;
+}
+
+.avatar-orb span {
+  width: 132px;
+  height: 132px;
+  border: 1px solid rgba(39, 116, 83, 0.2);
+  animation: orbit 8s linear infinite;
+}
+
+.direct-eyebrow {
+  margin: 0 0 9px;
+  color: #277453 !important;
+  font-size: 10px !important;
+  font-weight: 850;
+  letter-spacing: 0.14em;
+}
+
+.direct-empty-state h2 {
+  margin: 0;
+  color: #18251f;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 30px;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+
+.direct-empty-state > p:not(.direct-eyebrow) {
+  max-width: 350px;
+  margin: 12px 0 20px;
+  color: #6b7670;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.duration-picker {
+  width: min(290px, 100%);
+  margin-bottom: 20px;
+  display: grid;
+  gap: 7px;
+  color: #34413b;
+  text-align: left;
+}
+
+.duration-picker > span {
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.duration-picker select {
+  width: 100%;
+  height: 42px;
+  padding: 0 38px 0 12px;
+  border: 1px solid #ccd6d0;
+  border-radius: 10px;
+  color: #24342c;
+  background: #fff;
+  font-size: 13px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.duration-picker select:focus {
+  border-color: #4d8b6e;
+  outline: 3px solid rgba(39, 116, 83, 0.12);
+}
+
+.duration-picker select:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.duration-picker small {
+  color: #7a847f;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.direct-error {
+  width: min(420px, 100%);
+  margin: 0 0 18px;
+  padding: 11px 13px;
+  border: 1px solid #efc5c5;
+  border-radius: 10px;
+  color: #973d3d;
+  background: #fff3f3;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.connect-button {
+  min-width: 190px;
+  min-height: 44px;
+  padding: 11px 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border: 0;
+  border-radius: 11px;
+  color: #fff;
+  background: #174e38;
+  box-shadow: 0 9px 20px rgba(23, 78, 56, 0.2);
+  font-size: 13px;
+  font-weight: 750;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease;
+}
+
+.connect-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: #1f6548;
+  box-shadow: 0 12px 24px rgba(23, 78, 56, 0.25);
+}
+
+.connect-button:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+.connect-button svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.button-spinner {
+  width: 17px;
+  height: 17px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+.direct-video {
+  position: absolute !important;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+}
+
+.video-waiting {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 13px;
+  color: #d8e0dc;
+  background: #142019;
+}
+
+.video-waiting p {
+  margin: 0;
+  font-size: 13px;
+}
+
+.direct-controls {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: 26px;
+  display: flex;
+  gap: 10px;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 15px;
+  background: rgba(15, 22, 18, 0.72);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(14px);
+  transform: translateX(-50%);
+}
+
+.direct-controls button {
+  min-width: 78px;
+  padding: 9px 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 0;
+  border-radius: 9px;
+  color: #f1f5f3;
+  background: rgba(255, 255, 255, 0.12);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.direct-controls button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.direct-controls button.end-button {
+  background: #c54646;
+}
+
+.direct-controls button.end-button:hover {
+  background: #de5555;
+}
+
+.direct-controls svg {
+  width: 17px;
+  height: 17px;
+  fill: currentColor;
 }
 
 .frame-loader {
@@ -334,6 +647,18 @@ footer strong {
 @keyframes pulse {
   50% {
     opacity: 0.45;
+  }
+}
+
+@keyframes float {
+  50% {
+    transform: translateY(-7px) rotate(2deg);
+  }
+}
+
+@keyframes orbit {
+  to {
+    transform: rotate(360deg);
   }
 }
 
@@ -390,6 +715,10 @@ footer strong {
   }
 
   .iframe-stage {
+    min-height: 540px;
+  }
+
+  .direct-stage {
     min-height: 540px;
   }
 }

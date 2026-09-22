@@ -1,31 +1,10 @@
-import { useMemo, useState } from 'react';
+import { lazy, Suspense } from 'react';
+import { KayaAvatarPanel } from './KayaAvatarPanel';
+import { appConfig } from './config';
 
-const DEFAULT_KAYA_URL = 'http://localhost:3000';
-const DEFAULT_WORKSPACE_ID = 'c69c3a07-7977-4335-a27a-35dc8ba3d9bc';
-const DEFAULT_WORKFLOW_ID = 'a3bb457b-dc72-4160-8074-fbb186860ff6';
-
-function readConfig() {
-  return {
-    kayaUrl: (import.meta.env.VITE_KAYA_URL || DEFAULT_KAYA_URL).replace(/\/+$/, ''),
-    workspaceId: import.meta.env.VITE_KAYA_WORKSPACE_ID || DEFAULT_WORKSPACE_ID,
-    workflowId: import.meta.env.VITE_KAYA_WORKFLOW_ID || DEFAULT_WORKFLOW_ID,
-  };
-}
+const DirectTavusPanel = lazy(() => import('./DirectTavusPanel'));
 
 function App() {
-  const config = useMemo(readConfig, []);
-  const [frameKey, setFrameKey] = useState(0);
-  const [isFrameLoading, setIsFrameLoading] = useState(true);
-
-  const avatarUrl = `${config.kayaUrl}/embed/${encodeURIComponent(
-    config.workspaceId,
-  )}/${encodeURIComponent(config.workflowId)}/avatar?theme=light`;
-
-  const reloadAvatar = () => {
-    setIsFrameLoading(true);
-    setFrameKey((key) => key + 1);
-  };
-
   return (
     <div className="app-shell">
       <header className="topbar">
@@ -45,7 +24,11 @@ function App() {
         <section className="intro-panel">
           <div>
             <p className="eyebrow">AI VIDEO ASSISTANT</p>
-            <h1>Talk naturally.<br />Get answers instantly.</h1>
+            <h1>
+              Talk naturally.
+              <br />
+              Get answers instantly.
+            </h1>
             <p className="intro-copy">
               Start a real-time conversation with our AI assistant. Ask a
               question using your voice and receive a personal video response.
@@ -88,44 +71,32 @@ function App() {
           </div>
         </section>
 
-        <section className="avatar-panel" aria-label="Avatar conversation">
-          <div className="frame-toolbar">
-            <div className="frame-status">
-              <span className={isFrameLoading ? 'status-dot loading' : 'status-dot'} />
-              <span>{isFrameLoading ? 'Loading avatar' : 'Avatar ready'}</span>
-            </div>
-            <button type="button" className="reload-button" onClick={reloadAvatar}>
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M17.65 6.35A7.95 7.95 0 0 0 12 4a8 8 0 1 0 7.75 10h-2.1A6 6 0 1 1 12 6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35Z" />
-              </svg>
-              Reload
-            </button>
-          </div>
-
-          <div className="iframe-stage">
-            {isFrameLoading && (
-              <div className="frame-loader" aria-live="polite">
-                <span className="spinner" />
-                <p>Preparing your avatar…</p>
-              </div>
-            )}
-            <iframe
-              key={frameKey}
-              src={avatarUrl}
-              title="Kaya Avatar conversation"
-              allow="camera; microphone; autoplay; clipboard-read; clipboard-write; display-capture"
-              allowFullScreen
-              referrerPolicy="strict-origin-when-cross-origin"
-              onLoad={() => setIsFrameLoading(false)}
-            />
-          </div>
-        </section>
+        {appConfig.mode === 'mock' ? (
+          <Suspense fallback={<PanelLoading />}>
+            <DirectTavusPanel />
+          </Suspense>
+        ) : (
+          <KayaAvatarPanel />
+        )}
       </main>
 
       <footer>
         Powered by <strong>Kaya AI</strong>
       </footer>
     </div>
+  );
+}
+
+function PanelLoading() {
+  return (
+    <section className="avatar-panel" aria-label="Loading Tavus client">
+      <div className="direct-stage">
+        <div className="frame-loader">
+          <span className="spinner" />
+          <p>Loading Daily video client…</p>
+        </div>
+      </div>
+    </section>
   );
 }
 
