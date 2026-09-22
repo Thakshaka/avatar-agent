@@ -5,10 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently -k -n web,api -c cyan,green \"npm:dev:web\" \"npm:dev:server\"",
-    "dev:web": "vite",
+    "dev:web": "vite client --config client/vite.config.ts",
     "dev:server": "tsx watch server/index.ts",
-    "build": "tsc -p tsconfig.json && tsc -p server/tsconfig.json && vite build",
-    "preview": "vite preview",
+    "build": "tsc -p client/tsconfig.json && tsc -p server/tsconfig.json && vite build client --config client/vite.config.ts",
+    "preview": "vite preview client --config client/vite.config.ts",
     "start:server": "tsx server/index.ts"
   },
   "dependencies": {

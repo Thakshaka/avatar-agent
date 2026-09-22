@@ -6,6 +6,13 @@ A lightweight React/Vite avatar client with two runtime modes:
 - `mock` talks to the local Node backend, which creates a Tavus conversation;
   the React client joins and renders the returned Daily room directly.
 
+The project is organized as:
+
+```text
+client/  React/Vite frontend and its environment configuration
+server/  Node/Express mock Tavus API and its environment configuration
+```
+
 ## Run locally
 
 ```bash
@@ -24,7 +31,7 @@ On Windows PowerShell, use `npm.cmd` if script execution blocks `npm.ps1`.
 
 ## Kaya mode
 
-Set the frontend environment:
+Set the frontend environment in `client/.env.local`:
 
 ```env
 VITE_AVATAR_MODE=kaya
@@ -59,7 +66,7 @@ MAX_CALL_DURATION_SECONDS=900
 ```
 
 The API key stays in the Node process and is never sent to the browser. Then
-switch `.env.local`:
+switch `client/.env.local`:
 
 ```env
 VITE_AVATAR_MODE=mock
